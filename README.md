@@ -2,7 +2,7 @@
 
 # Distributed Oasis Platform Installation 
 
-An evaluation repository for testing the redesigned oasis architecture, where the keys lookup and analyses are now Distributed across a pool of workers
+An evaluation repository for testing the redesigned oasis architecture, where the keys lookup and analyses are now distributed across a pool of workers
 
 <TODO -details and diagrams-> 
 
