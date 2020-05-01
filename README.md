@@ -42,21 +42,6 @@ sudo ./install.sh
 ```
 > Note: sudo is not required if the Docker [post-install steps](https://docs.docker.com/install/linux/linux-postinstall/) are followed to run docker as a non-root user.
 
-#### Oasis Docker Components 
-
-![Oasis docker images](https://github.com/OasisLMF/OasisEvaluation/raw/master/.img/oasis_containers.png)
-
-|Component              |Description         |Technology  |
-| ---------------------:| ------------------:| ----------:|
-|ShinyProxy	            |Provides multi-user support and enterprise integration features on top of a Shiny app.	|ShinyProxy|
-|OasisUI	              |The application server for the Oasis user interface, a web app.	                      |Shiny App|
-|OasisAPI	              |The application server for the Oasis API.	                                            |Django Application Server|
-|OasisAPI DB	          |The database for the Oasis API. Stores the system meta-data, but not the detailed model data, exposure data or results. 	|MySql (other options)|
-|Worker monitor	        |Monitors the model worker and updates the Oasis API database with the status of tasks.	|Custom Python code|
-|Celery - Message Queue	|Message queue for the celery job management framework.	|Rabbit MQ (other options)|
-|Celery – Backing Store	|Backing store for the celery job management framework.	|MySQL (other options)|
-|Datastore	            |File based datastore for exposure data, analysis results and model data.	|Docker volume|
-|Model Worker	          |Celery worker that can run a lookup or model execution task for a particular model version. The model data is attached to the container from the datastore at startup.	|Custom Python and C++ code|
 
 ## Web interfaces 
 On installation a single admin account is created which is used to access the following web interfaces.
