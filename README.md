@@ -1,16 +1,17 @@
 <img src="https://oasislmf.org/packages/oasis_theme_package/themes/oasis_theme/assets/src/oasis-lmf-colour.png" alt="Oasis LMF logo" width="250"/>
 
-# Oasis Platform Evaluation
+# Distributed Oasis Platform Installation 
 
-The Oasis Platform release now includes a full API for operating catastrophe models and a general consolidation of the platform architecture.
-Windows SQL server is no longer a strict requirement.
-The platform can be run via docker containers on a single machine or, if required, scaled up to run on a cluster.
+An evaluation repository for testing the redesigned oasis architecture, where the keys lookup and analyses are now Distributed across a pool of workers
 
+<TODO -details and diagrams-> 
+
+
+
+## Install Prerequisites
 Docker support is the main requirement for running the platform.
 A Linux based installation is the main focus of this example deployment. 
 Running the install script from this repository automates install process of the OasisPlatform API v1, User Interface and example PiWind model. 
-
-## Install Prerequisites
 * Host operating system with docker support, see [Docker compatibility matrix](https://success.docker.com/article/compatibility-matrix).
 * For this example we have used [Docker compose](https://docs.docker.com/compose/) which is required for running the install script.
 
