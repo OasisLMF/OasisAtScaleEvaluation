@@ -76,7 +76,7 @@ set +e
 docker-compose down
 docker-compose pull
 set -e
-docker-compose up -d --no-build worker-monitor channel-layer celery-beat task-controller server
+docker-compose up -d --no-build worker-monitor channel-layer celery-beat task-controller server worker
 
 # setup and run the worker controller
 cd $SCRIPT_DIR/$GIT_WORKER_CONTROLLER
@@ -90,7 +90,7 @@ set +e
 docker-compose down
 #docker-compose pull
 set -e
-docker-compose up -d --no-build
+docker-compose up -d
 
 # Run Oasis UI
 cd $SCRIPT_DIR/$GIT_UI
@@ -101,8 +101,3 @@ docker network create shiny-net
 set -e
 docker pull coreoasis/oasisui_app:$VERS_UI
 docker-compose -f $SCRIPT_DIR/$GIT_UI/docker-compose.yml up -d
-
-# Run API eveluation notebook
-cd $SCRIPT_DIR
-docker-compose -f api_evaluation_notebook/docker-compose.api_evaluation_notebook.yml build
-docker-compose -f api_evaluation_notebook/docker-compose.api_evaluation_notebook.yml up -d
