@@ -75,6 +75,8 @@ sed -i "s|:latest|:${VERS_API}|g" docker-compose.yml
 set +e
 docker-compose down
 docker-compose pull
+docker pull coreoasis/model_worker:$VERS_WORKER
+docker pull coreoasis/api_server:$VERS_API
 set -e
 docker-compose up -d --no-build worker-monitor channel-layer celery-beat task-controller server worker
 
