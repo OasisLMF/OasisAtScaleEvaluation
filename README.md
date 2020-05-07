@@ -4,8 +4,9 @@
 
 An evaluation repository for testing the redesigned oasis architecture, where the keys lookup and analyses are now distributed across a pool of workers
 
-<TODO -details and diagrams-> 
+![alt text](https://github.com/OasisLMF/OasisEvaluation/raw/master/.img/new_arch.png)
 
+<TODO: more details and diagrams> 
 
 
 ## Install Prerequisites
