@@ -1,9 +1,10 @@
 <img src="https://oasislmf.org/packages/oasis_theme_package/themes/oasis_theme/assets/src/oasis-lmf-colour.png" alt="Oasis LMF logo" width="250"/>
 
-# Distributed Oasis Platform Installation 
+# Oasis at scale Platform Installation 
 
 An evaluation repository for testing the redesigned oasis architecture, where the keys lookup and analyses are now distributed across a pool of workers
 
+## Distributed Architecture 
 ![alt text](https://github.com/OasisLMF/OasisAtScaleEvaluation/blob/master/.img/new_arch.png)
 
 <TODO: more details and diagrams> 
