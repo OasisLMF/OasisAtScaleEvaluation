@@ -4,7 +4,7 @@
 
 An evaluation repository for testing the redesigned oasis architecture, where the keys lookup and analyses are now distributed across a pool of workers
 
-![alt text](https://github.com/OasisLMF/OasisEvaluation/raw/master/.img/new_arch.png)
+![alt text](https://github.com/OasisLMF/OasisAtScaleEvaluation/blob/master/.img/new_arch.png)
 
 <TODO: more details and diagrams> 
 
@@ -34,8 +34,8 @@ sudo apt update && sudo apt install git docker docker-compose
 
 2) Clone this repository 
 ```
-git clone https://github.com/OasisLMF/OasisEvaluation.git 
-cd OasisEvaluation
+git clone https://github.com/OasisLMF/OasisAtScaleEvaluation.git 
+cd OasisAtScaleEvaluation
 ```
 3) Run the deployment script 
 ```
@@ -53,13 +53,13 @@ Pass: password
 ```
 
 ### [OasisUI Interface](http://localhost:8080/app/BFE_RShiny) - *localhost:8080/app/BFE_RShiny* 
-![alt text](https://github.com/OasisLMF/OasisEvaluation/raw/master/.img/oasisui.png)
+![alt text](https://github.com/OasisLMF/OasisAtScaleEvaluation/raw/master/.img/oasisui.png)
 
 ### [API Swagger UI](http://localhost:8000/) - *localhost:8000*
-![alt text](https://github.com/OasisLMF/OasisEvaluation/raw/master/.img/api_swagger.png)
+![alt text](https://github.com/OasisLMF/OasisAtScaleEvaluation/raw/master/.img/api_swagger.png)
 
 ### [API Admin Panel](http://localhost:8000/admin) - *localhost:8000/admin*
-![alt text](https://github.com/OasisLMF/OasisEvaluation/raw/master/.img/admin_panel.png)
+![alt text](https://github.com/OasisLMF/OasisAtScaleEvaluation/raw/master/.img/admin_panel.png)
 
 ## Exposure inputs
 
@@ -153,6 +153,6 @@ This evaluation also includes a Jupyter notebook that accesses the API using the
 
 The following sequence diagram illustrates how the general steps in the analysis, encapulated by the API client functions, map to specific API calls.
 
-![Oasis API sequence](https://github.com/OasisLMF/OasisEvaluation/raw/master/.img/oasis_api_sequence.png)
+![Oasis API sequence](https://github.com/OasisLMF/OasisAtScaleEvaluation/raw/master/.img/oasis_api_sequence.png)
 
 
