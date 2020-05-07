@@ -16,7 +16,7 @@ GIT_WORKER_CONTROLLER=OasisWorkerController
 GIT_WORKER_CONTROLLER_BRANCH=master
 
 
-# ---  OASIS UI --- # 
+# === OASIS UI ============================================================== #
 if [ -d $SCRIPT_DIR/$GIT_UI ]; then
     cd $SCRIPT_DIR/$GIT_UI
     git stash
@@ -28,7 +28,7 @@ else
     git checkout $VERS_UI
 fi 
 
-# ---  OASIS API --- # 
+# === OASIS API ============================================================= #
 if [ -d $SCRIPT_DIR/$GIT_API ]; then
     cd $SCRIPT_DIR/$GIT_API
     git stash
@@ -40,7 +40,7 @@ else
     git checkout $GIT_API_BRANCH
 fi 
 
-# ---  MODEL PiWind --- # 
+# === MODEL PiWind ========================================================== #
 if [ -d $SCRIPT_DIR/$GIT_PIWIND ]; then
     cd $SCRIPT_DIR/$GIT_PIWIND
     git stash
@@ -52,7 +52,7 @@ else
     git checkout $VERS_PIWIND
 fi
 
-# ---  OASIS Worker Controller --- #
+# === OASIS Worker Controller =============================================== #
 if [ -d $SCRIPT_DIR/$GIT_WORKER_CONTROLLER ]; then
     cd $SCRIPT_DIR/$GIT_WORKER_CONTROLLER
     git stash
@@ -65,41 +65,48 @@ else
 fi
 
 
-# setup and run API
-cd $SCRIPT_DIR/$GIT_API
-export OASIS_MODEL_DATA_DIR=$SCRIPT_DIR/$GIT_PIWIND
-git checkout -- docker-compose.yml
-sed -i "s|coreoasis/model_worker:latest|coreoasis/model_worker:${VERS_WORKER}|g" docker-compose.yml
-sed -i "s|:latest|:${VERS_API}|g" docker-compose.yml
 
-set +e
-docker-compose down
-docker-compose pull
-docker pull coreoasis/model_worker:$VERS_WORKER
-docker pull coreoasis/api_server:$VERS_API
-set -e
-docker-compose up -d --no-build worker-monitor channel-layer celery-beat task-controller server worker
 
-# setup and run the worker controller
-cd $SCRIPT_DIR/$GIT_WORKER_CONTROLLER
-export OASIS_MODEL_DATA_DIR=$SCRIPT_DIR/$GIT_PIWIND
-export OASIS_MEDIA_ROOT=$SCRIPT_DIR/$GIT_API/docker-shared-fs/
-export OASIS_MODEL_WORKER_VERSION=$VERS_WORKER
-git checkout -- docker-compose.yaml
-sed -i "s|coreoasis/worker-controller:latest|coreoasis/worker-controller:${VERS_WORKER_CONTROLLER}|g" docker-compose.yaml
 
-set +e
-docker-compose down
-#docker-compose pull
-set -e
-docker-compose up -d
+# === RUN API =============================================================== #
+    cd $SCRIPT_DIR/$GIT_API
+    export OASIS_MODEL_DATA_DIR=$SCRIPT_DIR/$GIT_PIWIND
+    git checkout -- docker-compose.yml
+    sed -i "s|coreoasis/model_worker:latest|coreoasis/model_worker:${VERS_WORKER}|g" docker-compose.yml
+    sed -i "s|:latest|:${VERS_API}|g" docker-compose.yml
 
-# Run Oasis UI
-cd $SCRIPT_DIR/$GIT_UI
-git checkout -- docker-compose.yml
-sed -i "s|:latest|:${VERS_UI}|g" docker-compose.yml
-set +e
-docker network create shiny-net
-set -e
-docker pull coreoasis/oasisui_app:$VERS_UI
-docker-compose -f $SCRIPT_DIR/$GIT_UI/docker-compose.yml up -d
+    set +e
+    docker-compose down
+    docker-compose pull
+    docker pull coreoasis/model_worker:$VERS_WORKER
+    docker pull coreoasis/api_server:$VERS_API
+    set -e
+    docker-compose up -d --no-build worker-monitor channel-layer celery-beat task-controller server worker
+
+# === RUN WORKER CONTROLLER ================================================= #
+    cd $SCRIPT_DIR/$GIT_WORKER_CONTROLLER
+    export OASIS_MODEL_DATA_DIR=$SCRIPT_DIR/$GIT_PIWIND
+    export OASIS_MEDIA_ROOT=$SCRIPT_DIR/$GIT_API/docker-shared-fs/
+    export OASIS_MODEL_WORKER_VERSION=$VERS_WORKER
+    git checkout -- docker-compose.yaml
+    sed -i "s|coreoasis/worker-controller:latest|coreoasis/worker-controller:${VERS_WORKER_CONTROLLER}|g" docker-compose.yaml
+
+    set +e
+    docker-compose down
+    set -e
+    docker-compose up -d
+
+# === RUN OASIS UI ========================================================== #
+    cd $SCRIPT_DIR/$GIT_UI
+    git checkout -- docker-compose.yml
+    sed -i "s|:latest|:${VERS_UI}|g" docker-compose.yml
+    set +e
+    docker network create shiny-net
+    set -e
+    docker pull coreoasis/oasisui_app:$VERS_UI
+    docker-compose -f $SCRIPT_DIR/$GIT_UI/docker-compose.yml up -d
+
+# === RUN PORTAINER -======================================================== #
+    cd $SCRIPT_DIR
+    docker-compose -f portainer.docker-compose.yaml up -d 
+
