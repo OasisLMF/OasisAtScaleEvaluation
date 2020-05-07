@@ -18,9 +18,9 @@ def on_open(ws):
         pass
 
 def on_message(ws, raw_message):
-    print('\nNew message:')
     message = json.loads(raw_message)
     msg = message['content']
+    #print('\nNew message:')
     #print(msg)
 
     for item in msg:
