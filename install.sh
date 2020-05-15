@@ -81,7 +81,7 @@ fi
     docker pull coreoasis/model_worker:$VERS_WORKER
     docker pull coreoasis/api_server:$VERS_API
     set -e
-    docker-compose up -d --no-build worker-monitor channel-layer celery-beat task-controller server worker
+    docker-compose up -d --no-build worker-monitor channel-layer celery-beat task-controller server
 
 # === RUN WORKER CONTROLLER ================================================= #
     cd $SCRIPT_DIR/$GIT_WORKER_CONTROLLER
