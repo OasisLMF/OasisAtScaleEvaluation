@@ -3,8 +3,8 @@ set -e
 set -x
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-export VERS_API=arch-2020-alpha
-export VERS_WORKER=arch-2020-alpha
+export VERS_API=arch-2020-alpha-2
+export VERS_WORKER=arch-2020-alpha-2
 export VERS_UI=1.5.1
 export VERS_PIWIND=1.6.0
 export VERS_WORKER_CONTROLLER=latest
