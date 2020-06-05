@@ -17,12 +17,6 @@ Running the install script from this repository automates install process of the
 * Host operating system with docker support, see [Docker compatibility matrix](https://success.docker.com/article/compatibility-matrix).
 * For this example we have used [Docker compose](https://docs.docker.com/compose/) which is required for running the install script.
 
-## Cloud Provisioning 
-PiWind is an example model and only requires a small to medium sized Instance for demonstration. 
-This of course will change depending on the size and complexity of the models hosted on the platform. 
-
-* For running in AWS EC2 we recommend a a medium sized general purpose Instance such as *T2.medium* or larger 
-* To host on Azure use a *Standard_B2s* or larger instance 
   
 ## Installation Steps
 
@@ -79,85 +73,4 @@ Example files are available for the PiWind model:
 
 ## Troubleshooting 
 Feedback and error reports are invaluable for improving the stability and performance of the Oasis Platform, If you encounter an issue please consider [submitting an issue here](https://github.com/OasisLMF/OasisPlatform/issues)
-
-#### Viewing logs 
-
-`docker logs oasisplatform_worker_1`
-```
-Generating losses
-[2019-02-13 17:48:44,166: INFO/ForkPoolWorker-1] 
-Switching CWD to /tmp/tmp3ddy2doi
-[2019-02-13 17:48:44,166: INFO/ForkPoolWorker-1] STARTED: oasislmf.model_execution.runner.run
-[2019-02-13 17:48:46,356: INFO/ForkPoolWorker-1] COMPLETED: oasislmf.model_execution.runner.run in 2.19s
-[2019-02-13 17:48:46,356: INFO/ForkPoolWorker-1] 
-Loss outputs generated in /tmp/tmp3ddy2doi/output
-[2019-02-13 17:48:46,356: INFO/ForkPoolWorker-1] 
-Finished loss generation (2.286 seconds)
-[2019-02-13 17:48:46,373: INFO/ForkPoolWorker-1] Output location = b05026a0ea1e4c2cbcc47bacab4af95b.tar
-[2019-02-13 17:48:46,373: INFO/ForkPoolWorker-1] COMPLETED: src.model_execution_worker.tasks.start_analysis in 2.31s
-[2019-02-13 17:48:46,381: INFO/ForkPoolWorker-1] Task run_analysis[6ea4a9b3-b829-4046-82dd-bfb2c714bc10] succeeded in 2.3318499579982017s: 'b05026a0ea1e4c2cbcc47bacab4af95b.tar'
-
-...
-```
-
-`docker logs oasisplatform_server_1`
-```
-[pid: 67|app: 0|req: 45/105] 192.168.192.1 () {38 vars in 805 bytes} [Thu Feb 14 12:15:07 2019] GET /static/drf-yasg/insQ.min.js => generated 0 bytes in 1 msecs (HTTP/1.1 304) 2 headers in 92 bytes (0 switches on core 0)
-[pid: 65|app: 0|req: 17/106] 192.168.192.1 () {38 vars in 819 bytes} [Thu Feb 14 12:15:07 2019] GET /static/drf-yasg/swagger-ui-init.js => generated 0 bytes in 1 msecs (HTTP/1.1 304) 2 headers in 92 bytes (0 switches on core 0)
-INFO 2019-02-14 12:15:07,339 generators 68 139841283544896 view <class 'src.server.oasisapi.auth.views.TokenRefreshView'> uses URLPathVersioning but URL /refresh_token/ has no param {version}
-INFO 2019-02-14 12:15:07,339 generators 68 139841283544896 view <class 'src.server.oasisapi.auth.views.TokenObtainPairView'> uses URLPathVersioning but URL /access_token/ has no param {version}
-INFO 2019-02-14 12:15:07,339 generators 68 139841283544896 view <class 'src.server.oasisapi.healthcheck.views.HealthcheckView'> uses URLPathVersioning but URL /healthcheck/ has no param {version}
-
-...
-```
-`docker logs oasisplatform_worker-monitor_1`
-```
-[2019-02-14 11:23:39,709: INFO/MainProcess] Connected to amqp://rabbit:**@rabbit:5672//
-[2019-02-14 11:23:39,728: INFO/MainProcess] mingle: searching for neighbors
-[2019-02-14 11:23:40,777: INFO/MainProcess] mingle: all alone
-[2019-02-14 11:23:40,807: WARNING/MainProcess] /usr/local/lib/python3.6/site-packages/celery/fixups/django.py:202: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
-  warnings.warn('Using settings.DEBUG leads to a memory leak, never '
-[2019-02-14 11:23:41,616: INFO/MainProcess] Received task: run_register_worker[21e8c3b5-116e-41d7-8a73-e0109796fb04]  
-/usr/local/lib/python3.6/site-packages/celery/platforms.py:795: RuntimeWarning: You're running the worker with superuser privileges: this is
-absolutely not recommended!
-
-Please specify a different user using the -u option.
-
-User information: uid=0 euid=0 gid=0 egid=0
-
-  uid=uid, euid=euid, gid=gid, egid=egid,
-[2019-02-14 11:23:41,618: INFO/ForkPoolWorker-1] run_register_worker[21e8c3b5-116e-41d7-8a73-e0109796fb04]: model_supplier: OasisIM, model_name: PiWind, model_id: 1
-[2019-02-14 11:23:42,422: INFO/MainProcess] Events of group {task} enabled by remote.
-
-...
-```
-
-#### Checking that the containers are up
-                                            
-`docker ps -a`
-```
-CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS                      PORTS                                                                                        NAMES
-8e7ca227c0cb        coreoasis/oasisui_app:latest     "R -e flamingo::runF…"   21 hours ago        Exited (137) 17 hours ago                                                                                                ecstatic_ramanujan
-a0e34d052776        coreoasis/model_worker:latest    "/bin/sh -c ./startu…"   21 hours ago        Up 2 hours                                                                                                               oasisplatform_worker_1
-e04153bd9c3d        coreoasis/api_server:latest      "startup wait-for-se…"   21 hours ago        Up 2 hours                  8000/tcp                                                                                     oasisplatform_worker-monitor_1
-02d674c97796        coreoasis/api_server:latest      "startup ./uwsgi/run…"   21 hours ago        Up 2 hours                  0.0.0.0:8000->8000/tcp                                                                       oasisplatform_server_1
-95a26c60ad4f        iserko/docker-celery-flower      "flower --port=5555 …"   21 hours ago        Up 2 hours                  0.0.0.0:5555->5555/tcp                                                                       oasisplatform_flower_1
-6ff9e92e55d1        mysql                            "docker-entrypoint.s…"   21 hours ago        Up 2 hours                  3306/tcp, 33060/tcp                                                                          oasisplatform_celery-db_1
-e2b36b1bf91c        rabbitmq:3-management            "docker-entrypoint.s…"   21 hours ago        Up 2 hours                  4369/tcp, 5671/tcp, 0.0.0.0:5672->5672/tcp, 15671/tcp, 25672/tcp, 0.0.0.0:15672->15672/tcp   oasisplatform_rabbit_1
-804f7d64015b        mysql                            "docker-entrypoint.s…"   21 hours ago        Up 2 hours                  3306/tcp, 33060/tcp                                                                          oasisplatform_server-db_1
-561ac5c8cf5f        coreoasis/oasisui_proxy:latest   "/bin/sh -c ./startu…"   22 hours ago        Up 15 hours                 0.0.0.0:8080->8080/tcp                                                                       oasisui_proxy
-                                                                     oasisui_proxy
-
-```
-
-#### Trying the API
-
-This evaluation also includes a Jupyter notebook that accesses the API using the Oasis Python client.
-
-[API evaluation notebook](http://localhost:8888) - *localhost:8888* (password: pass)
-
-The following sequence diagram illustrates how the general steps in the analysis, encapulated by the API client functions, map to specific API calls.
-
-![Oasis API sequence](https://github.com/OasisLMF/OasisAtScaleEvaluation/raw/master/.img/oasis_api_sequence.png)
-
 
