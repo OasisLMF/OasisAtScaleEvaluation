@@ -3,14 +3,14 @@ set -e
 set -x
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-export VERS_API=arch-2020-alpha-3
-export VERS_WORKER=arch-2020-alpha-3
-export VERS_UI=1.5.1
-export VERS_PIWIND=1.6.0
+export VERS_API=ep-1.19.0-rc1
+export VERS_WORKER=ep-1.19.0-rc1
+export VERS_UI=1.9.0
+export VERS_PIWIND=1.19.0
 export VERS_WORKER_CONTROLLER=latest
 GIT_UI=OasisUI
 GIT_API=OasisPlatform
-GIT_API_BRANCH=architecture-2020
+GIT_API_BRANCH=feature/refactor-arch2020
 GIT_PIWIND=OasisPiWind
 GIT_WORKER_CONTROLLER=OasisWorkerController
 GIT_WORKER_CONTROLLER_BRANCH=master
